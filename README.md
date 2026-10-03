@@ -1,14 +1,22 @@
 # ⚡ ARCEUS GEAR // Next-Gen Gaming Hardware Store
 
+[![Live Production Store](https://img.shields.io/badge/Live_Store-arceusgear.web.app-00f0ff?style=for-the-badge&logo=firebase&logoColor=white)](https://arceusgear.web.app)
+[![Security Status](https://img.shields.io/badge/Security-Production_Hardened-emerald?style=for-the-badge&logo=googlecloud&logoColor=white)](https://arceusgear.web.app)
+[![AI Architecture](https://img.shields.io/badge/INFY_AI-NVIDIA_30B_Reasoning-76b900?style=for-the-badge&logo=nvidia&logoColor=white)](https://arceusgear.web.app)
+
 > **Developed for INFYHACKATHON 2.0 (Infynux Academy)**  
-> A complete, production-grade e-commerce application engineered with **React, TypeScript, Tailwind CSS, Node.js, Express, Prisma ORM, and INFY AI (Gemini Shopping Copilot)**.
+> 🌐 **Live Production Website:** [https://arceusgear.web.app](https://arceusgear.web.app)  
+> A complete, production-grade e-commerce application engineered with **React 19, TypeScript, Tailwind CSS, 3D Parallax Hardware Physics, Node.js, Express, Prisma ORM, and INFY AI Copilot**.
 
 ---
 
-## 🎮 1. Live Servers
-- **Frontend Web App:** [http://localhost:5173](http://localhost:5173)
-- **Backend API Server:** [http://localhost:5000](http://localhost:5000)
-- **Health Check:** [http://localhost:5000/api/health](http://localhost:5000/api/health)
+## 🎮 1. Live Deployment & Servers
+
+* 🚀 **Live Production Website (Firebase Global CDN):**  
+  👉 **[https://arceusgear.web.app](https://arceusgear.web.app)** 👈
+* 💻 **Local Development Web App:** [http://localhost:5173](http://localhost:5173)
+* ⚙️ **Backend API Server:** [http://localhost:5000](http://localhost:5000)
+* 🩺 **Backend Health Check:** [http://localhost:5000/api/health](http://localhost:5000/api/health)
 
 ---
 
