@@ -10,13 +10,10 @@
 
 ---
 
-## 🎮 1. Live Deployment & Servers
+## 🎮 1. Live Deployment
 
 * 🚀 **Live Production Website (Firebase Global CDN):**  
   👉 **[https://arceusgear.web.app](https://arceusgear.web.app)** 👈
-* 💻 **Local Development Web App:** [http://localhost:5173](http://localhost:5173)
-* ⚙️ **Backend API Server:** [http://localhost:5000](http://localhost:5000)
-* 🩺 **Backend Health Check:** [http://localhost:5000/api/health](http://localhost:5000/api/health)
 
 ---
 
@@ -117,4 +114,4 @@ cd client
 npm install
 npm run dev
 ```
-Open **[http://localhost:5173](http://localhost:5173)** in your browser!
+Access the live store at **[https://arceusgear.web.app](https://arceusgear.web.app)**!
