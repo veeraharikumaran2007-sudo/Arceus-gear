@@ -25,41 +25,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails
 
   const specEntries = Object.entries(product.specs || {}).slice(0, 2);
 
-  // Smooth 3D Interactive Parallax & Tilt State
+  // Smooth calm cursor spotlight without violent shaking or card tilting
   const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [transform, setTransform] = useState({ rotateX: 0, rotateY: 0, scale: 1 });
   const [mouseGlow, setMouseGlow] = useState({ x: 50, y: 50, opacity: 0 });
-  const [imageOffset, setImageOffset] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    // Organic, micro-damped 3D tilt (-5deg to +5deg)
-    const rotateX = -((y - centerY) / centerY) * 5;
-    const rotateY = ((x - centerX) / centerX) * 5;
-
-    // Parallax floating offset for the hardware image (-8px to +8px)
-    const imgX = ((x - centerX) / centerX) * 8;
-    const imgY = ((y - centerY) / centerY) * 8;
-
-    setIsHovered(true);
-    setTransform({ rotateX, rotateY, scale: 1.015 });
-    setMouseGlow({ x, y, opacity: 1 });
-    setImageOffset({ x: imgX, y: imgY });
+    setMouseGlow({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      opacity: 1,
+    });
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    // Buttery smooth spring back to rest (Zero frame jump or jitter)
-    setIsHovered(false);
-    setTransform({ rotateX: 0, rotateY: 0, scale: 1 });
-    setMouseGlow({ x: 50, y: 50, opacity: 0 });
-    setImageOffset({ x: 0, y: 0 });
+    setMouseGlow(prev => ({ ...prev, opacity: 0 }));
   }, []);
 
   return (
@@ -67,25 +48,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{
-        transform: `perspective(1000px) rotateX(${transform.rotateX}deg) rotateY(${transform.rotateY}deg) scale3d(${transform.scale}, ${transform.scale}, 1)`,
-        transition: isHovered
-          ? 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease'
-          : 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.7s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease',
-        transformStyle: 'preserve-3d',
-      }}
-      className="group relative rounded-3xl bg-[#080d1a]/90 backdrop-blur-2xl border border-white/[0.08] hover:border-cyan-400/40 flex flex-col justify-between overflow-hidden shadow-[0_16px_36px_-12px_rgba(0,0,0,0.7)] hover:shadow-[0_24px_50px_-10px_rgba(6,182,212,0.22)] cursor-pointer will-change-transform select-none"
+      className="group relative rounded-3xl bg-[#080d1a]/90 backdrop-blur-2xl border border-white/[0.08] hover:border-cyan-400/40 flex flex-col justify-between overflow-hidden shadow-[0_16px_36px_-12px_rgba(0,0,0,0.7)] hover:shadow-[0_20px_45px_-10px_rgba(6,182,212,0.2)] transition-all duration-300 cursor-pointer select-none"
     >
-      {/* 1. Interactive Cursor Spotlight Hologram Glow */}
+      {/* 1. Calm Ambient Cursor Spotlight Glow (Follows cursor, zero card shake) */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-500 rounded-3xl z-0"
         style={{
           opacity: mouseGlow.opacity,
-          background: `radial-gradient(380px circle at ${mouseGlow.x}px ${mouseGlow.y}px, rgba(56, 189, 248, 0.15), transparent 75%)`,
+          background: `radial-gradient(350px circle at ${mouseGlow.x}px ${mouseGlow.y}px, rgba(56, 189, 248, 0.12), transparent 75%)`,
         }}
       />
 
-      {/* 2. Top Cyber Laser Horizon Accent */}
+      {/* 2. Top Laser Accent Line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none" />
 
       {/* 3. Top Badges & Status */}
@@ -123,24 +97,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails
         </div>
       </div>
 
-      {/* 4. Hardware Visual Showcase with Parallax Melt Effect */}
+      {/* 4. Hardware Visual Showcase with Seamless Edge Melt */}
       <div
         className="relative h-56 sm:h-64 w-full overflow-hidden flex items-center justify-center p-4 cursor-pointer z-10"
         onClick={() => onViewDetails(product)}
       >
         {/* Soft Ambient Radial Bloom Behind Image */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.18),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.15),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-        {/* Independent Floating Parallax Image Layer */}
-        <div
-          style={{
-            transform: `translate3d(${imageOffset.x}px, ${imageOffset.y}px, 35px) scale(${isHovered ? 1.08 : 1})`,
-            transition: isHovered
-              ? 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)'
-              : 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-          className="w-full h-full flex items-center justify-center will-change-transform pointer-events-none"
-        >
+        {/* Stable Hardware Image with Gentle Smooth Zoom */}
+        <div className="w-full h-full flex items-center justify-center pointer-events-none">
           <img
             src={mainImage}
             alt={product.title}
@@ -148,7 +114,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails
               e.currentTarget.onerror = null;
               e.currentTarget.src = '/rare-laptop.png';
             }}
-            className="w-full h-full object-contain filter drop-shadow-[0_12px_22px_rgba(0,0,0,0.7)] group-hover:drop-shadow-[0_22px_38px_rgba(6,182,212,0.4)] transition-all duration-700 pointer-events-none"
+            className="w-full h-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.65)] group-hover:drop-shadow-[0_18px_30px_rgba(6,182,212,0.35)] group-hover:scale-105 transition-all duration-500 ease-out pointer-events-none"
             loading="lazy"
           />
         </div>
