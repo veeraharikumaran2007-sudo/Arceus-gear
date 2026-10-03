@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "kalki-arcues"
+  },
+  "targets": {
+    "kalki-arcues": {
+      "hosting": {
+        "arceusgear": [
+          "arceusgear"
+        ]
+      }
+    }
+  }
+}
